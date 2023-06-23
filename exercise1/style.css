@@ -58,3 +58,13 @@ a:hover {
   font-weight: bold;
   font-family: Arial, Helvetica, sans-serif;
 }
+.sprite {
+  width: 94px;
+  height: 100px;
+  background: url("sprite.png");
+  float: right;
+}
+
+.sprite:hover {
+  background-position: 0 -208px; /* Position the sprite at the bottom on hover */
+}
