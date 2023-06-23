@@ -59,12 +59,24 @@ a:hover {
   font-family: Arial, Helvetica, sans-serif;
 }
 .sprite {
-  width: 94px;
+  width: 100px;
   height: 100px;
   background: url("sprite.png");
   float: right;
 }
 
 .sprite:hover {
-  background-position: 0 -208px; /* Position the sprite at the bottom on hover */
+  background-position: 0 -208px;
+}
+
+.sprite2 {
+  width: 100px;
+  height: 100px;
+  background: url("sprite.png");
+  background-position: 0 -107px;
+  float: right;
+}
+
+.sprite2:hover {
+  background-position: 0 -315px;
 }
