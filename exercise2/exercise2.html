@@ -100,7 +100,7 @@
         <img src="images/medium/painting1.jpg" />
         <figcaption>
           <em>Still Life with Flowers in a Glass Vase</em> <br />
-          Jan Davidsz. de Heem, 1650 - 1683
+          <span>Jan Davidsz. de Heem, 1650 - 1683</span>
         </figcaption>
       </figure>
       <div id="thumbBox">
@@ -150,12 +150,15 @@
           let srcName = $(this).attr("src");
           srcName = srcName.replace("small", "medium");
 
-          $("#imgManipulated img").attr("src", srcName); 
+          $("#imgManipulated img").attr("src", srcName);
 
           const newSrc = $("#imgManipulated img").attr("src");
           console.log(newSrc);
 
           console.log(srcName);
+
+          $("#imgManipulated figcaption em").text(altText);
+          $("#imgManipulated figcaption span").text(titleText);
 
           console.log("Image clicked: " + altText + ", " + titleText);
         });
