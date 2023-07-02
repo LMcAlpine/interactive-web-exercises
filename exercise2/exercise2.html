@@ -153,14 +153,15 @@
           $("#imgManipulated img").attr("src", srcName);
 
           const newSrc = $("#imgManipulated img").attr("src");
-          console.log(newSrc);
+          // console.log(newSrc);
 
-          console.log(srcName);
+          // console.log(srcName);
+          $("#imgManipulated img").css({ width: "450px", height: "640px" });
 
           $("#imgManipulated figcaption em").text(altText);
           $("#imgManipulated figcaption span").text(titleText);
 
-          console.log("Image clicked: " + altText + ", " + titleText);
+          // console.log("Image clicked: " + altText + ", " + titleText);
         });
       });
 
