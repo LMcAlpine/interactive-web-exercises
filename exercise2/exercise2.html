@@ -144,8 +144,8 @@
     <script>
       $(function () {
         $("#thumbBox div img").on("click", function (e) {
-          const altText = $(this).attr("alt"); // Get the alt text of the clicked image
-          const titleText = $(this).attr("title"); // Get the title of the clicked image
+          const altText = $(this).attr("alt");
+          const titleText = $(this).attr("title");
 
           let srcName = $(this).attr("src");
           srcName = srcName.replace("small", "medium");
@@ -165,29 +165,89 @@
       });
 
       $(function () {
+        const filters = {
+          opacity: 100,
+          saturate: 100,
+          brightness: 100,
+          hueRotate: 0,
+          grayscale: 0,
+          blur: 0,
+        };
+
+        function applyFilters() {
+          let cssSettings =
+            `opacity(${filters.opacity / 100}) ` +
+            `saturate(${filters.saturate}%) ` +
+            `brightness(${filters.brightness}%) ` +
+            `hue-rotate(${filters.hueRotate}deg) ` +
+            `grayscale(${filters.grayscale}%) ` +
+            `blur(${filters.blur}px)`;
+
+          let manipulateImage = $("#imgManipulated img");
+          manipulateImage.css("-webkit-filter", cssSettings);
+          manipulateImage.css("filter", cssSettings);
+        }
+
         $("input[type=range]").on("input", function (e) {
-          let sliderValue = $(this).val(); // Get the value of the current slider
+          let sliderValue = $(this).val();
           let sliderId = $(this).attr("id");
-          console.log(sliderValue); // Log the value to the console
 
           let cssFilterValue;
-          cssFilterValue = "opacity(" + sliderValue / 100 + ")";
 
           switch (sliderId) {
             case "sliderOpacity":
               $("#numOpacity").text($("#sliderOpacity").val());
-              cssFilterValue = "opacity(" + sliderValue / 100 + ")";
+
+              filters.opacity = sliderValue;
               break;
             case "sliderSaturation":
               $("#numSaturation").text($("#sliderSaturation").val());
-              cssFilterValue = "saturate(" + sliderValue + "%";
+
+              filters.saturate = sliderValue;
+              break;
+            case "sliderBrightness":
+              $("#numBrightness").text($("#sliderBrightness").val());
+
+              filters.brightness = sliderValue;
+              break;
+            case "sliderHue":
+              $("#numHue").text($("#sliderHue").val());
+
+              filters.hueRotate = sliderValue;
+              break;
+            case "sliderGray":
+              $("#numGray").text($("#sliderGray").val());
+
+              filters.grayscale = sliderValue;
+              break;
+            case "sliderBlur":
+              $("#numBlur").text($("#sliderBlur").val());
+
+              filters.blur = sliderValue;
               break;
           }
-
-          let manipulateImage = $("#imgManipulated img");
-          manipulateImage.css("-webkit-filter", cssFilterValue);
-          manipulateImage.css("filter", cssFilterValue);
+          applyFilters();
         });
+      });
+
+      $("#resetFilters").on("click", function (e) {
+        e.preventDefault();
+        $(".sliders")
+          .val(function () {
+            return this.defaultValue;
+          })
+          .trigger("input");
+
+        filters = {
+          opacity: 100,
+          saturate: 100,
+          brightness: 100,
+          hueRotate: 0,
+          grayscale: 0,
+          blur: 0,
+        };
+
+        applyFilters();
       });
     </script>
   </body>
