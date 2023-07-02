@@ -163,6 +163,32 @@
           console.log("Image clicked: " + altText + ", " + titleText);
         });
       });
+
+      $(function () {
+        $("input[type=range]").on("input", function (e) {
+          let sliderValue = $(this).val(); // Get the value of the current slider
+          let sliderId = $(this).attr("id");
+          console.log(sliderValue); // Log the value to the console
+
+          let cssFilterValue;
+          cssFilterValue = "opacity(" + sliderValue / 100 + ")";
+
+          switch (sliderId) {
+            case "sliderOpacity":
+              $("#numOpacity").text($("#sliderOpacity").val());
+              cssFilterValue = "opacity(" + sliderValue / 100 + ")";
+              break;
+            case "sliderSaturation":
+              $("#numSaturation").text($("#sliderSaturation").val());
+              cssFilterValue = "saturate(" + sliderValue + "%";
+              break;
+          }
+
+          let manipulateImage = $("#imgManipulated img");
+          manipulateImage.css("-webkit-filter", cssFilterValue);
+          manipulateImage.css("filter", cssFilterValue);
+        });
+      });
     </script>
   </body>
 </html>
