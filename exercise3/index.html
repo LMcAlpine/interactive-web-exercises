@@ -7,10 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>mod5-example</title>
     <!-- add a reference to the external stylesheet -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    />
+    <link rel="stylesheet" href="bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
 
@@ -18,7 +15,7 @@
     <!-- HTML code for displaying the navigation bar on the top -->
     <nav class="navbar navbar-dark bg-primary mb-3">
       <div class="container">
-        <a href="#" class="navbar-brand">Multiple Web Services Example</a>
+        <a href="#" class="navbar-brand">Web Services</a>
       </div>
     </nav>
 
@@ -28,19 +25,6 @@
         <li class="nav-item" role="presentation">
           <a
             class="nav-link active"
-            id="home-tab"
-            data-toggle="tab"
-            href="#home"
-            role="tab"
-            aria-controls="home"
-            aria-selected="true"
-            >Home</a
-          >
-        </li>
-
-        <li class="nav-item" role="presentation">
-          <a
-            class="nav-link"
             id="catFactPanel-tab"
             data-toggle="tab"
             href="#catFactPanel"
@@ -50,21 +34,25 @@
             >Cat Facts</a
           >
         </li>
+
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="character-tab"
+            data-toggle="tab"
+            href="#characterPanel"
+            role="tab"
+            aria-controls="characterPanel"
+            aria-selected="true"
+            >Get Character</a
+          >
+        </li>
       </ul>
 
       <div class="tab-content" id="myTabContent">
-        <div
-          class="tab-pane fade show active"
-          id="home"
-          role="tabpanel"
-          aria-labelledby="home-tab"
-        >
-          <!-- end .row -->
-        </div>
-
         <!--content-->
         <div
-          class="tab-pane fade show"
+          class="tab-pane fade show active"
           id="catFactPanel"
           role="tabpanel"
           aria-labelledby="catFactPanel-tab"
@@ -73,11 +61,31 @@
           <div class="card border-primary mb-3">
             <div class="card-header">Random Cat Facts</div>
             <div class="card-body">
-              <h5 class="card-title"></h5>
-              <p class="card-text"></p>
+              <p class="card-text fact"></p>
 
               <button type="submit" class="btn btn-primary" id="getFact">
                 Get Random Fact about Cats
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!--character-->
+        <div
+          class="tab-pane fade show"
+          id="characterPanel"
+          role="tabpanel"
+          aria-labelledby="characterPanel-tab"
+        >
+          <br />
+          <div class="card border-primary mb-3">
+            <div class="card-header">Character Information</div>
+            <div class="card-body">
+              <h5 class="card-title character"></h5>
+              <p class="card-text character"></p>
+
+              <button type="submit" class="btn btn-primary" id="getCharacter">
+                Get Random Character
               </button>
             </div>
           </div>
@@ -119,15 +127,10 @@
     </div>
 
     <script>
-      //add event listener for the searchCharacter button
-      // communicate with service provider:
-      // parse response and display on the content of the tab-pane
       $("#getFact").click(async function getResults() {
-        // const character = $("#character").val();
-
         const token = ``;
         const url = `https://meowfacts.herokuapp.com/?count=1`;
-        console.log(url);
+
         const response = await fetch(url, {
           method: "GET",
           cache: "no-cache",
@@ -136,20 +139,39 @@
         //convert response to json
         const responseData = await response.json();
 
-        console.log(responseData);
-
-        //display modal
-        // infoDialog.style.display = "block";
-
-        $(`.card-text`).html(responseData.data[0]);
-
-        //map response data to html elements in modal
-        console.log(responseData.data[0]);
-        //  $(".modal-title").html(responseData.data[0]);
-
-        console.log(response);
-        //   console.log(character);
+        $(`.card-text.fact`).html(responseData.data[0]);
       });
+
+      $("#getCharacter").click(async function () {
+        const url =
+          "http://ccdb.hemiola.com/characters/radicals/85?filter=gb&fields=kDefinition,kMandarin,string,kTotalStrokes";
+        const response = await fetch(url, { method: "GET" });
+        const data = await response.json();
+
+        const num = getRandomNumber(0, data.length - 1);
+
+        const characterData = data[num];
+        const character = characterData.string;
+        const definition = characterData.kDefinition;
+        const mandarin = characterData.kMandarin;
+        const strokes = characterData.kTotalStrokes;
+
+        $(".card-title.character").html("Random Chinese Character");
+        $(".card-text.character").html(
+          "Character: " +
+            character +
+            "<br>Definition: " +
+            definition +
+            "<br>Mandarin Pronunciation: " +
+            mandarin +
+            "<br>Strokes: " +
+            strokes
+        );
+      });
+
+      function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
 
       // retrieve mdoal
       var modal = document.getElementById("infoDialog");
