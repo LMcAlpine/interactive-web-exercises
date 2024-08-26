@@ -2,9 +2,9 @@
 This repository contains three interactive web exercises demonstrating various front-end development techniques using HTML, CSS, JavaScript, and jQuery. Each exercise is a self-contained project that explores different aspects of web development, from basic HTML structure and styling to dynamic content manipulation and API integration.
 
 ## Table of Contents
-- [Exercise 1: Quiz Webpage](#exercise1)
-- [Exercise 2: Image Manipulation Interface](#exercise2)
-- [Exercise 3: API-Driven Content Display](#exercise3)
+- [Exercise 1: Quiz Webpage](exercise1/)
+- [Exercise 2: Image Manipulation Interface](exercise2/)
+- [Exercise 3: API-Driven Content Display](exercise3/)
 
 
 ## Exercise 1: Quiz Webpage
